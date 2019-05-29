@@ -1,0 +1,66 @@
+<!-- Header -->
+<header id="js-header" class="u-header u-header--sticky-top u-header--toggle-section u-header--change-appearance" data-header-fix-moment="150">
+  <div class="u-header__section u-header__section--light g-transition-0_3 g-py-10" data-header-fix-moment-exclude="u-header__section--light g-py-10" data-header-fix-moment-classes="u-header__section--dark g-bg-charcoal-opacity-0_8 g-py-0">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <!-- Responsive Toggle Button -->
+        <button class="navbar-toggler navbar-toggler-right btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-top-3 g-right-0" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navBar" data-toggle="collapse" data-target="#navBar">
+          <span class="hamburger hamburger--slider">
+            <span class="hamburger-box" onClick="colorize();">
+              <span class="hamburger-inner"></span>
+              
+            </span>
+          </span>
+        </button>
+        <!-- End Responsive Toggle Button -->
+        <!-- Logo -->
+        <a href="/" class="navbar-brand">
+          <%= image_tag 'logo_stravo3.png', alt:'STRAVO', height: 50 %>
+        </a>
+        <!-- End Logo -->
+        <!-- Navigation -->
+        <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg" id="navBar">
+          <ul class="navbar-nav text-uppercase g-font-weight-600 g-font-size-16 ml-auto">
+            <li class="nav-item g-mx-20--lg">
+              <a href="/" class="nav-link px-0">Accueil</a>
+            </li>
+            <li class="nav-item g-mx-20--lg">
+              <a href="/prestations.html" class="nav-link px-0">Prestations</a>
+            </li>
+            <li class="nav-item g-mx-20--lg">
+              <a href="/realisations.html" class="nav-link px-0">Réalisations</a>
+            </li>
+            <li class="nav-item g-ml-20--lg g-mr-0--lg">
+              <a href="/devis.html" class="nav-link px-0">Devis en ligne</a>
+            </li>
+          </ul>
+        </div>
+        <!-- End Navigation -->
+        <script>
+          var y = 1
+function colorize() {
+  if (y === 1) {
+    document.getElementById("js-header").style="background-color: rgba(53, 60, 63, 0.5);";
+    var x = document.getElementsByClassName("nav-link px-0");
+    // document.getElementsByClassName("nav-link px-0").style="color: white;";
+                for (var i = 0, max = x.length; i < max; i++) {
+                   x[i].style.color = "white";
+                 }
+                 y = y + 1
+  } else {
+    y = y - 1
+    document.getElementById("js-header").style="background-color: rgba(53, 60, 63, 0);";
+    var x = document.getElementsByClassName("nav-link px-0");
+    // document.getElementsByClassName("nav-link px-0").style="color: white;";
+                for (var i = 0, max = x.length; i < max; i++) {
+                   x[i].style.color = "black";
+                 }
+  }
+console.log(y)
+}
+              </script>
+      </div>
+    </nav>
+  </div>
+</header>
+<!-- End Header -->

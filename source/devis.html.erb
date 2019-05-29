@@ -1,0 +1,233 @@
+---
+title: Stravo - Devis en ligne
+---
+<%= partial 'header-bis' %>
+
+
+<% travaux = [
+["Faux-plafond","faux","surface0","isolation0",1],
+["Faux-plafond démontable","fauxdemont","surface1","isolation1",1],
+["Doublage des murs","doublage","surface2","isolation2",1],
+["Cloison séparative","cloison","surface3","isolation3",1],
+["Plâtre - Enduits","platre","surface4","isolation4",0],
+] %>
+
+<div class = "container g-px-10 g-px-20--md g-pt-140 g-pb-50">
+  <h2> Demandez votre devis en moins de 2 minutes </h2>
+  <h4> Simple, gratuit et sans engagment </h4>
+
+	<!-- General Forms -->
+  <form action="contact2.php" method="POST" class="g-brd-around--md g-brd-gray-light-v4 g-pa-15 g-pa-30--md g-mt-20 g-mb-30" enctype="multipart/form-data">
+    <div class = "row">
+      <div class = "col-lg-6 g-px-0 g-px-30--lg ">
+      	<div class = "align-items-center">
+          <h4>Nature des travaux</h4>
+          <p class="isolation">Isolation</p>
+        </div>
+     <% i = 1 %>   
+     <% travaux.each do |t| %>   
+        <div class="d-flex align-items-center g-py-5">
+          <label class="form-check-inline u-check g-pl-25 g-mb-0">
+            <input id= "myCheck<%= i %>" class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" type="checkbox" name="<%= t[1]%>" onChange="uncheck<%=i%>()">
+            <div class="u-check-icon-checkbox-v4 g-absolute-centered--y g-left-0">
+              <i class="fa" data-check-icon="&#xf00c"></i>
+            </div>
+            <div class="g-width-180">
+            <%= t[0]%> :
+            </div>
+          </label>
+          <input id="surface<%=i%>" class="form-control form-control-md g-py-5 g-mx-5 g-width-40 g-px-5" type="text" value ="" name="<%= t[2]%>" onChange="check<%=i %>();">
+          <div class="d-flex">
+            m<sub style="font-size:0.5em;">2</sub>
+          </div>
+          <% if t[4] == 1 %>
+          <label class="d-flex align-items-center justify-content-between g-mb-0 g-ml-20" >
+          <div class="u-check">
+            <input class="g-hidden-xs-up " type="checkbox" name="<%= t[3]%>">
+            <div class="u-check-icon-radio-v8">
+              <i class="fa" data-check-icon=""></i>
+            </div>
+         </div>
+         </label>
+         <% end %>
+       </div>
+       <% i+= 1 %>
+     <% end %>
+
+   </div>
+   <div class = "col-lg-6 g-px-30 ">
+   	  <!-- Textarea -->
+  <div class="form-group g-mb-20 g-mt-0--lg g-mt-40">
+    <h4>Description des travaux :</h4>
+    <textarea name="desc" id="inputGroup2_1" class="g-mt-30 form-control form-control-md g-resize-none rounded-0" rows="12" placeholder="Décrivez les travaux souhaités"></textarea>
+  </div>
+  <!-- End Textarea -->
+   </div>
+</div>
+
+  <hr class="u-divider-linear-gradient u-divider-linear-gradient--gray-light-v2 g-my-50">
+
+  <!-- Text Input -->
+  <div class = "row">
+  	<div class = "col-lg-6 g-px-30">
+  		<h4>Vos coordonnées :</h4>
+		  <div class="form-group g-pt-10 g-mb-10 g-pr-100--md g-pr-10">
+		    <label class="g-mb-10" for="lastname">Nom<span class="required">*</span></label>
+		    <input name="lastname" id="lastname" class="form-control form-control-md rounded-0" type="text" placeholder="Votre nom" required>
+<!-- 		    <small class="form-text text-muted g-font-size-default g-mt-10">We'll never share your email with anyone else.</small>
+ -->		  </div>
+		  <div class="form-group g-pt-10 g-mb-10 g-pr-100--md g-pr-10">
+		    <label class="g-mb-10" for="firstname">Prénom<span class="required">*</span></label>
+		    <input name="firstname" id="firstname" class="form-control form-control-md rounded-0" type="text" placeholder="Votre prénom" required>
+		  </div>
+		  <div class="form-group g-pt-10 g-mb-10 g-pr-100--md g-pr-10">
+		    <label class="g-mb-10" for="email">Adresse e-mail<span class="required">*</span></label>
+		    <input name = "email" id="email" class="form-control form-control-md rounded-0" type="email" placeholder="Votre adresse e-mail" required>
+		  </div>
+		  <div class="form-group g-pt-10 g-mb-10 g-pr-100--md g-pr-10">
+		    <label class="g-mb-10" for="tel">Numéro de téléphone<span class="required">*</span></label>
+		    <input name="tel" id="tel" class="form-control form-control-md rounded-0" type="text" placeholder="Votre numéro de téléphone" required>
+		  </div>
+      <input type="text" id="fuckrobots" name="fuckrobots"/>
+	</div>
+	<div class ="col-lg-6 g-px-30 g-pt-0--lg g-pt-20">
+	  <h4>Localisation du chantier :</h4>
+		  <div class="form-group g-pt-10 g-mb-10 g-pr-100--md g-pr-10">
+		    <label class="g-mb-10" for="adresse">Adresse :</label>
+		    <input name="adresse" id="adresse" class="form-control form-control-md rounded-0" type="text" placeholder="L'adresse du chantier">
+		  </div>
+		  <div class="form-group g-pt-10 g-mb-10 g-pr-100--md g-pr-10">
+		    <label class="g-mb-10" for="cp">Code postal :<span class="required">*</span></label>
+		    <input name="cp" id="cp" class="form-control form-control-md rounded-0" type="text" placeholder="Code postal du chantier">
+		  </div>
+		  <div class="form-group g-pt-10 g-mb-10 g-pr-100--md g-pr-10">
+		    <label class="g-mb-10" for="ville">Commune :<span class="required">*</span></label>
+		    <input name="ville" id="ville" class="form-control form-control-md rounded-0" type="text" placeholder="Commune du chantier">
+		  </div>
+		   <!-- Select Single Date -->
+		  <div class="form-group g-pt-10 g-mb-10 g-pr-100--md g-pr-10">
+		    <label class="g-mb-10" for="datepickerDefault">Date souhaitée de début de chantier :</label>
+    <div class="input-group g-brd-primary--focus">
+      <input name ="date" id="datepickerDefault" class="form-control form-control-md u-datepicker-v1 g-brd-right-none rounded-0" type="text">
+      <div class="input-group-append">
+        <span class="input-group-text rounded-0 g-color-gray-dark-v5"><i class="icon-calendar"></i></span>
+      </div>
+    </div>
+  </div>
+  <!-- End Select Single Date -->
+
+	</div>
+  </div>
+
+
+
+
+
+<hr class="u-divider-linear-gradient u-divider-linear-gradient--gray-light-v2 g-my-50">
+
+<h4> Vous pouvez ajouter jusqu'à 3 photos</h4>
+<p>Formats acceptés: .jpg .jpeg .gif .png
+  <br />Taille max: 5 Mo</p>
+<div class="d-flex g-py-5">
+<input type="file" id="hiddenfile1" style="display:none;" name="fileToUpload1" onChange="getvalue1();"/>
+<input type="button" class="btn btn-md u-btn-orange rounded-0" value="Choisissez un fichier" onclick="getfile1();" />
+<input type="text" class="input-group-text rounded-0 g-color-gray-dark-v5" id="selectedfile1" value="" style="display:none;"/>
+</div>
+<div class="d-flex g-py-5">
+<input type="file" id="hiddenfile2" style="display:none;" name="fileToUpload2" onChange="getvalue2();"/>
+<input type="button" id="champ2" class="btn btn-md u-btn-orange rounded-0" value="Choisissez un fichier" onclick="getfile2();" style="display:none;"/>
+<input type="text" class="input-group-text rounded-0 g-color-gray-dark-v5" id="selectedfile2" value="" style="display:none;"/>
+</div>
+<div class="d-flex g-py-5">
+<input type="file" id="hiddenfile3" style="display:none;" name="fileToUpload3" onChange="getvalue3();"/>
+<input type="button" id="champ3" class="btn btn-md u-btn-orange rounded-0" value="Choisissez un fichier" onclick="getfile3();" style="display:none;"/>
+<input type="text" class="input-group-text rounded-0 g-color-gray-dark-v5" id="selectedfile3" value="" style="display:none;"/>
+</div>
+
+
+<script type="text/javascript">
+ <% i = 1 %> 
+ <% for i in (1..5) %>
+function check<%= i %>() {
+    document.getElementById("myCheck<%= i %>").checked = true;
+        console.log('kikoukikou');
+
+}
+function uncheck<%= i %>() {
+    document.getElementById("surface<%= i %>").value = "";
+    
+}
+<% end %>
+
+
+    function getfile1(){
+        document.getElementById('hiddenfile1').click();
+        document.getElementById('champ2').style="display:inline;";
+    }
+    function getvalue1(){
+        document.getElementById('selectedfile1').value=document.getElementById('hiddenfile1').value;
+        document.getElementById('selectedfile1').style="display:block; height:39px;";
+    }
+    function getfile2(){
+        document.getElementById('hiddenfile2').click();
+        document.getElementById('champ3').style="display:inline;";
+    }
+    function getvalue2(){
+        document.getElementById('selectedfile2').value=document.getElementById('hiddenfile2').value;
+        document.getElementById('selectedfile2').style="display:block; height:39px;";
+        // document.getElementById('champ3').style="display:inline;";
+
+    }
+    function getfile3(){
+        document.getElementById('hiddenfile3').click();
+    }
+    function getvalue3(){
+        document.getElementById('selectedfile3').value=document.getElementById('hiddenfile3').value;
+        document.getElementById('selectedfile3').style="display:block; height:39px;";
+    }
+    function submit(){
+        document.getElementById('submitform').click();
+    }
+</script>
+<!-- <script type="text/javascript">
+    function getfile(){
+        document.getElementById('hiddenfile').click();
+    }
+    function getvalue(){
+        document.getElementById('selectedfile').value=document.getElementById('hiddenfile').value;
+        document.getElementById('selectedfile').style="display:block; height:39px;";
+    }
+</script> -->
+
+<!-- 
+
+<input type="file" id="test1" style="display:none" name="file" value="test3" onChange="getvalue();"/>
+<input type="text" id="test2" value="Choisissez un fichier"/>
+<button class="btn btn-md u-btn-primary rounded-0" onclick="getfile();">Browse</button>
+<script>
+    function getfile(){
+        document.getElementById('test1').click();
+    }
+    function getvalue(){
+        document.getElementById('test2').value=document.getElementById('test1').value;
+    }
+</script> -->
+<div class="text-right">
+<!-- <input type="submit" id="submitform" name="submitform" class="btn btn-md u-btn-primary rounded-0"/>
+ -->
+<!--  <input type="button" class="btn btn-md u-btn-primary rounded-0" value="Envoyer" onclick="submit();"/>
+ -->
+ <button class="btn btn-md u-btn-primary rounded-0"/> Envoyer </button>
+</div>
+<!-- 		    <input type="submit" name="envoyer" value="Envoyer" />
+ -->		
+</div>
+</form>
+
+
+
+
+
+
+</div>
+

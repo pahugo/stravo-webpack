@@ -1,0 +1,203 @@
+---
+title: Merci
+---
+
+<%= partial 'header-bis-bis' %>
+
+
+<div class="container g-py-200">
+
+<?php
+if(!empty($_POST['website'])) die();
+ $message = '<html><body>';
+ $message .= '<h2>Demande de devis</h2>';
+ $message .= '<h4> Coordonnées :</h4>';
+ $message .= '<p>'.$_POST['firstname'].' '.$_POST['lastname'].'</p>';
+ $message .= '<p>'.$_POST['tel'].' '.$_POST['email'].'</p>';
+ $message .= '<h4>Adresse du chantier :</h4><p>'.$_POST['adresse'].' '.$_POST['cp']. ' ' . $_POST['ville'];
+
+// $files = '';
+
+
+
+     $to      = 'hugo.payet@live.fr';
+     $subject = 'Nouvelle demande de devis';
+     // $type_travaux = array($_POST['cloison'],$_POST['faux'])),;
+
+
+
+
+
+$travaux = array(
+                                                                'Faux plafond',
+                                                                'Faux plafond démontable',
+                                                                'Doublage des murs',
+                                                                'Cloison séparative',
+                                                                'Plâtre - Enduits',
+                                                                'Combles'
+                                                                );
+
+
+$type_travaux = '';
+$surface = '';
+$travaux_name = array('faux','fauxdemont','doublage','cloison','platre','combles');
+$i = 0;
+ $message .= '<h4>Nature des travaux :</h4>';
+
+foreach ($travaux_name as $name) {
+    if(isset($_POST[$travaux_name[$i]])){
+       $type_travaux[$i] = $travaux[$i];
+       if($_POST['surface' . $i] != NULL){
+         if(isset($_POST['isolation' . $i])){
+          // echo "<br /> ". $type_travaux[$i] . " : " . $_POST['surface' . $i]. " m2 avec isolation<br />";
+          $message .= "". $type_travaux[$i] . " : " . $_POST['surface' . $i]. " m2 avec isolation<br />";
+         } else {
+          // echo "<br /> ". $type_travaux[$i] . " : " . $_POST['surface' . $i]. " m2 <br />";
+          $message .= "". $type_travaux[$i] . " : " . $_POST['surface' . $i]. " m2 <br />";
+         }
+       } else {
+         // echo "<br /> ". $type_travaux[$i] . "<br />";    
+       }
+    }
+    $i = $i + 1;
+}
+
+
+
+     // if(isset($_POST['faux'])){ 
+     //   $type_travaux[0] = $travaux[0];
+     //   $surface[0] = $_POST['surface0'];
+     // }
+     // if(isset($_POST['fauxdemont'])){ 
+     //   $type_travaux[1] = $travaux[1];
+     //   $surface[1] = $_POST['surface1'];
+     // }
+     // if(isset($_POST['cloison'])){ 
+     //   $type_travaux[2] = $travaux[2];
+     //   $surface[2] = $_POST['surface2'];
+     // }
+ $message .= '<h4>Description :</h4>';
+
+   if(isset($_POST['desc'])){
+    $message .= "<p>". $_POST['desc']. "</p>";
+    // echo $_POST['desc'];
+    // $message .= '<br />' . $_POST['desc'] . '<br />';
+
+   }
+ $message .= '<h4>Date de début de travaux souhaitée : ' . $_POST['date'];
+
+      $message .= '<h4>Photos :</h4>';
+
+   $i = array("1","2","3") ;
+$x = 1;
+foreach ($i as $value) {
+// echo $_FILES["fileToUpload" . $value]["name"];
+    # code...
+// if(isset($_FILES["fileToUpload" . $value]["name"])){    
+// $files[$i] = $_FILES["fileToUpload" . $value]["name"];
+
+  // if(isset($_FILES["fileToUpload" . $value]["name"])){
+if(!empty($_FILES["fileToUpload" . $value]["name"])){
+    $target_dir = "uploads/";
+    $target_file = $target_dir . basename($_FILES["fileToUpload" . $value]["name"]);
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+// Check if image file is a actual image or fake image
+    if(isset($_POST["submit"])) {
+      $check = getimagesize($_FILES["fileToUpload" . $value]["tmp_name"]);
+      if($check !== false) {
+       // echo "File is an image - " . $check["mime"] . ".";
+        $uploadOk = 1;
+      } else {
+       // echo "File is not an image.";
+        $uploadOk = 0;
+      }
+    }
+// Check if file already exists
+  if (file_exists($target_file)) {
+    // echo "Sorry, file already exists.";
+    $uploadOk = 0;
+  }
+// Check file size
+  if ($_FILES["fileToUpload" . $value]["size"] > 10000000) {
+    //echo "La photo est trop lourde. Merci de la modifier";
+    $uploadOk = 0;
+  }
+// Allow certain file formats
+  if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+  && $imageFileType != "gif" ) {
+    // echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+    $uploadOk = 0;
+  }
+  $namerand = rand(100000,999999);
+  $temp[$x] = explode(".", $_FILES["fileToUpload" . $value]["name"]);
+  $newfilename[$x] = $namerand . '.' . end($temp[$x]);
+  // $newfilename[$x] = $_FILES["fileToUpload" . $value]["tmp_name"];
+
+// Check if $uploadOk is set to 0 by an error
+  if ($uploadOk == 0) {
+      //  echo '<p><button onclick="goBack()">Retourner au formulaire</button></p>';
+// if everything is ok, try to upload file
+  } else {
+    if (move_uploaded_file($_FILES["fileToUpload" . $value]["tmp_name"], "uploads/" . $newfilename[$x])) {
+       // echo "The file ". basename( $_FILES["fileToUpload" . $value]["name"]). " has been uploaded.";
+    } else {
+       // echo '<p><button onclick="goBack()">Retrouner au formulaire</button></p>';
+    }
+  }
+    if(isset($_FILES["fileToUpload" . $value]["name"])){
+     $message .= '<a href="http://dev.stravo.fr/uploads/' . $newfilename[$x] . '">'. $newfilename[$x] . '</a> <br />' ;
+    // echo '<a href="http://dev.stravo.fr/uploads/' . $newfilename[$x] . '">'. $newfilename[$x] .  '</a><br />' ;
+    }
+  }
+  $x++;
+}
+    
+//      $i = 1;
+//      foreach ($type_travaux as $valeur) {
+//     echo 'test';
+//     echo $_POST['surface' . $i];
+//     echo 'fin test';
+//      if(isset($_POST['surface' . $i])){
+//         if(isset($_POST['isolation' . $i])){
+//           echo "<br /> ". $valeur . " : " . $_POST['surface' . $i]. " m2 avec isolation<br />";
+//           $message .= "<br /> ". $valeur . " : " . $_POST['surface' . $i]. " m2 avec isolation<br />";
+//         } else {
+//           echo "<br /> ". $valeur . " : " . $_POST['surface' . $i]. " m2 <br />";
+//           $message .= "<br /> ". $valeur . " : " . $_POST['surface' . $i]. " m2 <br />";
+//         }
+//       } else {
+//          echo "<br /> ". $valeur . "<br />";    
+//       }
+//       $i = $i +1;
+
+// }
+
+     // $message .= "<br /> ". $type_travaux[1];
+     // $message .= "<br /> ". $type_travaux[2];
+   // $message .= "<tr style='background: #eee;'><td><strong>Name:</strong> </td><td>" . strip_tags($_POST['req-name']) . "</td></tr>";
+   $message .= "</body></html>";
+     $headers = 'From: contact@stravo.fr' . "\r\n" ;
+     $headers .= 'Reply-To: '. $_POST['email']. "\r\n" ;
+     $headers .= "MIME-Version: 1.0\r\n";
+     $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+     if(mail($to, $subject, $message, $headers)){
+        echo "<h2>Merci, votre demande a bien été envoyée et sera traitée dans les meilleurs délais</h2>";
+    } else {
+        echo "<h2>Un problème est survenu, merci de réessayer ou de nous contacter directement au 0659044441</h2>";
+    }
+
+     ?>
+     <div class= g-py-30>
+
+<?php
+     echo $message;
+?>
+</div>
+</div>
+
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
