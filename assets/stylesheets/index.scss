@@ -1,29 +1,9 @@
 @import '~bootstrap/scss/bootstrap.scss';
 
- @import 'bootstrap/offcanvas';
- @import 'dzsparallaxer/dzsparallaxer';
- @import 'dzsparallaxer/dzsscroller/scroller';
- @import 'dzsparallaxer/advancedscroller/plugin';
- @import 'slick-carousel/slick/slick';
- @import 'animate';
- @import 'hamburgers/hamburgers.min';
- @import 'malihu-scrollbar/jquery.mCustomScrollbar.min';
- @import 'fancybox/jquery.fancybox';
- @import 'jquery-ui/themes/base/jquery-ui.min';
- @import 'prism/themes/prism';
- @import 'custombox/custombox.min';
- @import 'cubeportfolio-full/cubeportfolio/css/cubeportfolio.min';
- @import 'chosen/chosen';
-
- @import 'icon-line/css/simple-line-icons';
- @import 'icon-etlinefont/style';
- @import 'icon-line-pro/style';
- @import 'icon-hs/style';
-
- @import 'unify/css/unify-core';
- @import 'unify/css/unify';
- @import 'unify/css/unify-components';
- @import 'unify/css/unify-globals';
+ @import '../unify/unify-core';
+ @import '../unify/unify';
+ @import '../unify/unify-components';
+ @import '../unify/unify-globals';
 
 
 
